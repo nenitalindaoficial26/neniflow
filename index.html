@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeniFlow™ Meal Planner</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="scale-wrapper" id="scale-wrapper">
+    <div class="widget-container" style="position: relative;">
+        
+        <!-- Settings Panel -->
+        <div class="settings-panel" id="settings-panel" style="overflow-y:auto; max-height:400px;">
+            <h3 style="font-size:1rem; margin-bottom:1rem; border-bottom:1px solid var(--primary-pink); padding-bottom:0.5rem; display:flex; justify-content:space-between; align-items:center;">
+                <span data-i18n="settings_title">Ajustes Visuales</span>
+                <span style="cursor:pointer; font-size:0.8rem;" onclick="toggleSettings()">❌</span>
+            </h3>
+            <div class="input-group">
+                <label data-i18n="lbl_lang">Idioma / Language</label>
+                <select class="custom-select" id="language-select" onchange="updateTheme()">
+                    <option value="es">🇪🇸 Español</option>
+                    <option value="en">🇺🇸 English</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label data-i18n="lbl_currency">Moneda</label>
+                <select class="custom-select" id="currency-symbol" onchange="updateTheme()">
+                    <option value="USD">USD ($ Dólares)</option>
+                    <option value="COP">COP ($ Pesos Col)</option>
+                    <option value="MXN">MXN ($ Pesos Mex)</option>
+                    <option value="EUR">EUR (€ Euros)</option>
+                    <option value="GBP">GBP (£ Libras)</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label data-i18n="lbl_primary">Color Fondo</label>
+                <input type="color" id="color-primary" value="#FFF0F5" onchange="updateTheme()">
+            </div>
+            <div class="input-group">
+                <label data-i18n="lbl_accent">Color de Acento</label>
+                <input type="color" id="color-accent" value="#FFB6C1" onchange="updateTheme()">
+            </div>
+            <div class="input-group">
+                <label data-i18n="lbl_font">Tipografía</label>
+                <select class="custom-select" id="font-family" onchange="updateTheme()" style="font-family: inherit;">
+                    <option value="'Poppins', sans-serif" style="font-family: 'Poppins', sans-serif;">Poppins (Moderna)</option>
+                    <option value="'Times New Roman', Times, serif" style="font-family: 'Times New Roman', Times, serif;">Times New Roman (Clásica)</option>
+                    <option value="'Outfit', sans-serif" style="font-family: 'Outfit', sans-serif;">Outfit (Aesthetic)</option>
+                    <option value="'Quicksand', sans-serif" style="font-family: 'Quicksand', sans-serif;">Quicksand (Redondeada)</option>
+                    <option value="'Caveat', cursive" style="font-family: 'Caveat', cursive; font-size: 1.1rem;">Caveat (A mano)</option>
+                </select>
+            </div>
+            <div class="input-group" style="margin-bottom:0;">
+                <label data-i18n="lbl_zoom">Tamaño (Zoom)</label>
+                <input type="range" id="widget-zoom" min="0.8" max="1.2" step="0.05" value="1" oninput="updateTheme()">
+            </div>
+        </div>
+
+        <div class="grid-layout">
+            <!-- Left Column: Planner & Prep -->
+            <div class="column">
+                
+                <!-- Budget Control & Motivation -->
+                <div class="glass-panel flex-fill" style="display: flex; flex-direction: column;">
+                    <h2 class="section-title" data-i18n="title_budget">💸 Presupuesto y Gastos</h2>
+                    <!-- Top Row -->
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label data-i18n="lbl_budget_total">Presupuesto Semanal</label>
+                            <input type="number" class="custom-input save-data" id="budget-total" placeholder="0.00" oninput="calculateBudget()">
+                        </div>
+                        <div class="input-group">
+                            <label data-i18n="lbl_expense_day">Día del Gasto</label>
+                            <select class="custom-select save-data" id="expense-day">
+                                <option value="Lunes" data-i18n="opt_mon">Lunes</option>
+                                <option value="Martes" data-i18n="opt_tue">Martes</option>
+                                <option value="Miércoles" data-i18n="opt_wed">Miércoles</option>
+                                <option value="Jueves" data-i18n="opt_thu">Jueves</option>
+                                <option value="Viernes" data-i18n="opt_fri">Viernes</option>
+                                <option value="Sábado" data-i18n="opt_sat">Sábado</option>
+                                <option value="Domingo" data-i18n="opt_sun">Domingo</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Row -->
+                    <div class="input-group" style="margin-top: -0.5rem;">
+                        <label data-i18n="lbl_add_expense">Detalle y Monto del Gasto</label>
+                        <div style="display:flex; gap:0.5rem;">
+                            <input type="text" class="custom-input" id="expense-desc" data-i18n-ph="ph_expense_desc" placeholder="Detalle..." style="flex:2;">
+                            <input type="number" class="custom-input" id="expense-amount" placeholder="0.00" style="flex:1;">
+                            <button class="icon-btn" onclick="addExpense()" style="border:1px solid var(--accent-pink); border-radius: var(--radius-sm); padding:0 1rem; background: var(--white); color: var(--text-dark); cursor: pointer; font-weight: 600; transition: var(--transition);">➕</button>
+                        </div>
+                    </div>
+                    
+                    <div id="expense-list-container" style="max-height: 120px; overflow-y: auto; margin-bottom: 0.5rem; padding: 0.5rem; background: var(--white); border-radius: var(--radius-sm); border: 1px solid rgba(0,0,0,0.05); display: none;">
+                        <ul id="expense-list" style="list-style: none; padding: 0; margin: 0; font-size: 0.85rem; color: var(--text-dark); display:flex; flex-direction:column; gap:0.3rem;">
+                            <!-- List filled by JS -->
+                        </ul>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
+                        <button class="reset-btn" onclick="clearExpenses()" data-i18n="btn_clear_expenses" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">🧹 Reiniciar Gastos</button>
+                    </div>
+                    
+                    <div style="margin-top: 1rem; padding: 1rem; background: var(--white); border-radius: var(--radius-sm); border: 1px solid rgba(0,0,0,0.03); box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);">
+                        <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:var(--text-muted); margin-bottom:0.6rem;">
+                            <span><span data-i18n="txt_spent">Gasto Semanal:</span> <b id="spent-amount" style="color:var(--text-dark); font-size:1.1rem;">$0.00</b></span>
+                            <span><span data-i18n="txt_remaining">Restante:</span> <b id="remaining-amount" style="color:var(--text-dark); font-size:1.1rem;">$0.00</b></span>
+                        </div>
+                        <div style="width:100%; background:var(--beige); border-radius:10px; height:10px; overflow:hidden; border: 1px solid rgba(0,0,0,0.05);">
+                            <div id="budget-progress" style="width:0%; height:100%; background:var(--accent-pink); transition:var(--transition);"></div>
+                        </div>
+                    </div>
+
+                    <!-- Spacer to push motivational box to bottom -->
+                    <div style="flex: 1;"></div>
+
+                    <div class="motivational-box" id="motivational-message" style="margin-top: 2rem;">
+                        <!-- Filled by JS -->
+                    </div>
+
+                    <!-- Internal Branding & Actions -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255, 182, 193, 0.2);">
+                        <div style="font-size: 0.75rem; font-weight: 600; color: var(--accent-pink); letter-spacing: 1px; text-transform: uppercase; opacity: 0.6;">BY NeniCreator</div>
+                        <div style="display: flex; gap: 0.6rem; align-items: center;">
+                            <button class="icon-btn" onclick="toggleSettings()" title="Configuración" style="width: 32px; height: 32px; font-size: 0.9rem;">⚙️</button>
+                            <button class="reset-btn" onclick="resetPlanner()" data-i18n="btn_reset" style="font-size: 0.75rem; padding: 0.4rem 1rem;">✨ Reiniciar</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Column: Recipes, Groceries, Expenses -->
+            <div class="column">
+                
+                <!-- Recipe Control -->
+                <div class="glass-panel">
+                    <h2 class="section-title" data-i18n="title_recipe">📖 Control de Recetas</h2>
+                    <div class="input-group">
+                        <label data-i18n="lbl_recipe_name">Nombre de la Receta Estrella</label>
+                        <input type="text" class="custom-input save-data" id="recipe-name" data-i18n-ph="ph_recipe_name" placeholder="Ej: Pasta al Pesto">
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label data-i18n="lbl_time">Tiempo (min)</label>
+                            <input type="number" class="custom-input save-data" id="recipe-time" placeholder="30">
+                        </div>
+                        <div class="input-group">
+                            <label data-i18n="lbl_diff">Dificultad</label>
+                            <select class="custom-select save-data" id="recipe-diff">
+                                <option value="easy" data-i18n="opt_easy">Fácil</option>
+                                <option value="medium" data-i18n="opt_medium">Medio</option>
+                                <option value="hard" data-i18n="opt_hard">Difícil</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group" style="margin-bottom:0;">
+                        <label data-i18n="lbl_cat">Categoría</label>
+                        <select class="custom-select save-data" id="recipe-cat">
+                            <option value="healthy" data-i18n="opt_healthy">🥗 Saludable</option>
+                            <option value="fast" data-i18n="opt_fast">⚡ Rápido</option>
+                            <option value="budget" data-i18n="opt_cheap">🪙 Económico</option>
+                            <option value="gourmet" data-i18n="opt_gourmet">✨ Gourmet</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Meal Prep Planner (Separate Panel) -->
+                <div class="glass-panel">
+                    <h2 class="section-title" data-i18n="title_prep">🍱 Preparación de Comidas</h2>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label data-i18n="lbl_cook">👩🏻‍🍳 Cocinar con anticipación</label>
+                            <textarea class="custom-textarea save-data" id="prep-cook" data-i18n-ph="ph_cook" placeholder="Ej: Arroz, lavar vegetales..."></textarea>
+                        </div>
+                        <div class="input-group">
+                            <label data-i18n="lbl_freeze">❄️ Refrigerar / Congelar</label>
+                            <textarea class="custom-textarea save-data" id="prep-freeze" data-i18n-ph="ph_freeze" placeholder="Ej: Pollo marinado, sopas..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Daily Meal Log -->
+                <div class="glass-panel">
+                    <h2 class="section-title" data-i18n="title_daily_meals">🍽️ Registro de Comidas Diario</h2>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label data-i18n="lbl_breakfast">☀️ Desayuno</label>
+                            <input type="text" class="custom-input save-data" id="meal-breakfast" data-i18n-ph="ph_breakfast" placeholder="Ej: Avena con frutas...">
+                        </div>
+                        <div class="input-group">
+                            <label data-i18n="lbl_lunch">🥗 Almuerzo</label>
+                            <input type="text" class="custom-input save-data" id="meal-lunch" data-i18n-ph="ph_lunch" placeholder="Ej: Pollo con vegetales...">
+                        </div>
+                    </div>
+                    <div class="form-row" style="margin-bottom:0;">
+                        <div class="input-group">
+                            <label data-i18n="lbl_dinner">🌙 Cena</label>
+                            <input type="text" class="custom-input save-data" id="meal-dinner" data-i18n-ph="ph_dinner" placeholder="Ej: Ensalada ligera...">
+                        </div>
+                        <div class="input-group">
+                            <label data-i18n="lbl_snacks">🍎 Snacks</label>
+                            <input type="text" class="custom-input save-data" id="meal-snacks" data-i18n-ph="ph_snacks" placeholder="Ej: Almendras, yogurt...">
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="script.js"></script>
+    </div> <!-- close scale-wrapper -->
+</body>
+</html>
