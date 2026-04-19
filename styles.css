@@ -1,0 +1,399 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Outfit:wght@300;400;500;600&family=Poppins:wght@300;400;500;600&family=Quicksand:wght@300;400;500;600&display=swap');
+
+:root {
+    /* Palette */
+    --bg-transparent: transparent;
+    --glass-bg: rgba(255, 255, 255, 0.95);
+    --glass-border: rgba(230, 230, 230, 0.8);
+    --primary-pink: #FFF0F5; /* Light pink */
+    --accent-pink: #FFB6C1; /* Stronger pink */
+    --text-dark: #4A4A4A; /* Dark gray */
+    --text-muted: #8A8A8A; /* Medium gray */
+    --beige: #F7F7F7; /* Light gray instead of beige */
+    --white: #FFFFFF;
+    
+    /* Effects */
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.08);
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --radius-sm: 8px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+  width: 100%;
+  font-size: 115%;
+  font-family: var(--font-main, 'Poppins', sans-serif);
+  color: var(--text-dark);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Glassmorphism Container */
+.widget-container {
+    width: 100%;
+    max-width: 100%;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    border-radius: 0;
+    overflow: hidden;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--primary-pink);
+    padding-bottom: 1rem;
+}
+
+.header h1 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.reset-btn {
+    background: var(--white);
+    border: 1px solid var(--accent-pink);
+    color: var(--text-dark);
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 2px 8px rgba(220, 180, 190, 0.1);
+}
+
+.reset-btn:hover {
+    background: var(--primary-pink);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 180, 190, 0.2);
+}
+
+/* Settings Menu & Motivations */
+.icon-btn {
+    background: var(--white);
+    border: 1px solid var(--accent-pink);
+    color: var(--text-dark);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 2px 8px rgba(220, 180, 190, 0.1);
+    font-size: 1.1rem;
+}
+
+.icon-btn:hover {
+    background: var(--primary-pink);
+    transform: translateY(-2px);
+}
+
+.settings-panel {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 280px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-hover);
+    padding: 1.5rem;
+    z-index: 1000;
+    display: none;
+    border: 1px solid var(--accent-pink);
+}
+
+.settings-panel.active {
+    display: block;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.motivational-box {
+    background: var(--primary-pink);
+    border: 1px dashed var(--accent-pink);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-top: auto; /* Push to bottom in flex container */
+    font-style: italic;
+    box-shadow: none;
+    transition: var(--transition);
+}
+
+.motivational-box:hover {
+    transform: scale(1.02);
+}
+
+input[type="color"] {
+    -webkit-appearance: none;
+    border: none;
+    width: 100%;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    background: none;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: var(--radius-sm);
+}
+
+.scale-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    transform-origin: top center;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Layout Grid */
+.grid-layout {
+    width: 100%;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    align-items: stretch;
+    margin: 0;
+    padding: 0 10px;
+}
+
+@media (min-width: 900px) {
+    .grid-layout {
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+    }
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    height: 100%;
+}
+
+.flex-fill {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-fill .checklist, .flex-fill textarea {
+    flex: 1;
+}
+
+/* Sections */
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.glass-panel {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 1.8rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(255, 182, 193, 0.3);
+    transition: var(--transition);
+}
+
+.glass-panel:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+/* Weekly Planner */
+.weekly-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1rem;
+}
+
+.day-card {
+    background: var(--beige);
+    border-radius: var(--radius-sm);
+    padding: 1rem 0.8rem;
+    transition: var(--transition);
+    border: 1px solid transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.day-card:focus-within, .day-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-pink);
+    background: var(--white);
+    box-shadow: 0 6px 16px rgba(220, 180, 190, 0.15);
+}
+
+.day-name {
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-align: center;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.input-bare {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 0.4rem 0;
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.input-bare:focus {
+    outline: none;
+    border-bottom-color: var(--accent-pink);
+}
+
+.input-bare::placeholder {
+    color: #d1c8cb;
+    font-weight: 300;
+}
+
+/* Forms & Inputs */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+}
+
+.input-group label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.custom-input, .custom-select, .custom-textarea {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--accent-pink);
+    background: var(--beige);
+    color: var(--text-dark);
+    font-size: 0.9rem;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.custom-textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.custom-input:focus, .custom-select:focus, .custom-textarea:focus {
+    outline: none;
+    border-color: var(--accent-pink);
+    background: var(--white);
+    box-shadow: 0 0 0 3px rgba(244, 205, 216, 0.2);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+
+/* Expenses */
+.expense-total-box {
+    background: var(--primary-pink);
+    border: 1px solid var(--accent-pink);
+    padding: 1.2rem;
+    border-radius: var(--radius-sm);
+    text-align: center;
+    margin-top: 1rem;
+    transition: var(--transition);
+}
+
+.expense-total-box:hover {
+    transform: scale(1.02);
+}
+
+.expense-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.3rem;
+}
+
+.expense-amount {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* Hide number input arrows */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--accent-pink);
+    border-radius: 10px;
+}
