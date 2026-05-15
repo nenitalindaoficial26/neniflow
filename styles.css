@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600&family=Quicksand:wght@300;400;500;600;700&family=Caveat:wght@400;700&family=DM+Serif+Display&display=swap');
 
 :root {
     /* Palette - Refined for iOS Luxury */
@@ -10,6 +10,7 @@
     --text-muted: #888888;
     --accent-green: #4CAF50;
     --border-light: rgba(255, 255, 255, 0.3);
+    --font-main: 'Outfit', sans-serif;
     
     /* Effects */
     --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.05);
@@ -58,11 +59,15 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: var(--font-main);
+}
+
+button, input, select, textarea {
+    font-family: inherit;
 }
 
 body {
     background: var(--bg-main);
-    font-family: 'Outfit', sans-serif;
     color: var(--text-dark);
     line-height: 1.4;
     -webkit-font-smoothing: antialiased;
