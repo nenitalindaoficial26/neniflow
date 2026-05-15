@@ -14,12 +14,12 @@
         <!-- Settings Panel -->
         <div class="settings-panel" id="settings-panel">
             <h3>
-                <span>Ajustes Visuales</span>
+                <span data-i18n="settings_title">Ajustes Visuales</span>
                 <span class="close-settings" onclick="toggleSettings()">✕</span>
             </h3>
             
             <div class="theme-toggle-container">
-                <span style="font-size: 0.85rem; font-weight: 600;">Modo Oscuro</span>
+                <span style="font-size: 0.85rem; font-weight: 600;" data-i18n="lbl_dark_mode">Modo Oscuro</span>
                 <label class="toggle-switch">
                     <input type="checkbox" id="dark-mode-toggle" onchange="toggleDarkMode()">
                     <span class="slider"></span>
@@ -39,21 +39,21 @@
             <div class="input-group">
                 <label data-i18n="lbl_currency">Moneda</label>
                 <select class="custom-select" id="currency-symbol" onchange="updateTheme()">
-                    <option value="USD">USD ($ Dólares)</option>
-                    <option value="COP">COP ($ Pesos Col)</option>
-                    <option value="MXN">MXN ($ Pesos Mex)</option>
-                    <option value="EUR">EUR (€ Euros)</option>
-                    <option value="GBP">GBP (£ Libras)</option>
+                    <option value="USD" data-i18n="opt_usd">USD ($ Dólares)</option>
+                    <option value="COP" data-i18n="opt_cop">COP ($ Pesos Col)</option>
+                    <option value="MXN" data-i18n="opt_mxn">MXN ($ Pesos Mex)</option>
+                    <option value="EUR" data-i18n="opt_eur">EUR (€ Euros)</option>
+                    <option value="GBP" data-i18n="opt_gbp">GBP (£ Libras)</option>
                 </select>
             </div>
 
             <div class="form-row">
                 <div class="input-group">
-                    <label>Color Fondo</label>
+                    <label data-i18n="lbl_primary">Color Fondo</label>
                     <input type="color" id="color-bg" class="color-pill" value="#fcfcfc" onchange="updateTheme()">
                 </div>
                 <div class="input-group">
-                    <label>Color de Acento</label>
+                    <label data-i18n="lbl_accent">Color de Acento</label>
                     <input type="color" id="color-primary" class="color-pill" value="#FF8C9E" onchange="updateTheme()">
                 </div>
             </div>
@@ -78,11 +78,11 @@
             <!-- Left Column -->
             <div class="column">
                 <div class="glass-panel main-panel">
-                    <h2 class="section-title"><span class="icon-span">💸</span> Presupuesto y Gastos</h2>
+                    <h2 class="section-title"><span class="icon-span">💸</span> <span data-i18n="title_budget">Presupuesto y Gastos</span></h2>
                     
                     <div class="form-row">
                         <div class="input-group">
-                            <label>Presupuesto Semanal</label>
+                            <label data-i18n="lbl_budget_total">Presupuesto Semanal</label>
                             <div class="amount-editable-wrapper">
                                 <span class="currency-prefix">$</span>
                                 <input type="number" class="custom-input save-data large-input" id="budget-total" placeholder="0.00" oninput="calculateBudget()">
@@ -95,26 +95,26 @@
                             </div>
                         </div>
                         <div class="input-group">
-                            <label>Día del Gasto</label>
+                            <label data-i18n="lbl_expense_day">Día del Gasto</label>
                             <div class="select-wrapper">
                                 <span class="input-icon">📅</span>
                                 <select class="custom-select save-data" id="expense-day">
-                                    <option value="Lunes">Lunes</option>
-                                    <option value="Martes">Martes</option>
-                                    <option value="Miércoles">Miércoles</option>
-                                    <option value="Jueves">Jueves</option>
-                                    <option value="Viernes">Viernes</option>
-                                    <option value="Sábado">Sábado</option>
-                                    <option value="Domingo">Domingo</option>
+                                    <option value="Lunes" data-i18n="opt_mon">Lunes</option>
+                                    <option value="Martes" data-i18n="opt_tue">Martes</option>
+                                    <option value="Miércoles" data-i18n="opt_wed">Miércoles</option>
+                                    <option value="Jueves" data-i18n="opt_thu">Jueves</option>
+                                    <option value="Viernes" data-i18n="opt_fri">Viernes</option>
+                                    <option value="Sábado" data-i18n="opt_sat">Sábado</option>
+                                    <option value="Domingo" data-i18n="opt_sun">Domingo</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
                     <div class="input-group" style="margin-top: 1rem;">
-                        <label>Detalle y Monto del Gasto</label>
+                        <label data-i18n="lbl_add_expense">Detalle y Monto del Gasto</label>
                         <div class="expense-input-row">
-                            <input type="text" class="custom-input" id="expense-desc" placeholder="Detalle del gasto..." style="flex: 3;">
+                            <input type="text" class="custom-input" id="expense-desc" data-i18n-ph="ph_expense_desc" placeholder="Detalle del gasto..." style="flex: 3;">
                             <div class="price-input-wrapper" style="flex: 1.5;">
                                 <span class="currency-label">$</span>
                                 <input type="number" class="custom-input" id="expense-amount" placeholder="0.00">
@@ -129,18 +129,18 @@
 
                     <div class="action-row">
                         <button class="link-btn" onclick="clearExpenses()">
-                            <span class="rotate-icon">↺</span> Reiniciar Gastos
+                            <span class="rotate-icon">↺</span> <span data-i18n="btn_clear_expenses">Reiniciar Gastos</span>
                         </button>
                     </div>
 
                     <div class="summary-cards">
                         <div class="summary-card">
-                            <label>Gasto Semanal</label>
+                            <label data-i18n="txt_spent">Gasto Semanal</label>
                             <div id="spent-amount" class="summary-amount">$0.00</div>
                             <div class="summary-icon wallet-icon">👛</div>
                         </div>
                         <div class="summary-card">
-                            <label>Restante</label>
+                            <label data-i18n="txt_remaining">Restante</label>
                             <div id="remaining-amount" class="summary-amount positive">$0.00</div>
                             <div class="summary-icon chart-icon">📊</div>
                         </div>
@@ -148,14 +148,14 @@
 
                     <div class="quote-card">
                         <div class="quote-icon">✨</div>
-                        <p id="motivational-message">Un dólar ahorrado es un paso más hacia tus metas. 💸</p>
+                        <p id="motivational-message">¡Cocinar en casa es el primer paso para ahorrar y cuidar tu cuerpo! 💖</p>
                     </div>
 
                     <div class="footer">
                         <div class="branding">BY NENICREATOR</div>
                         <div class="footer-actions">
                             <button class="circle-btn" onclick="toggleSettings()">⚙️</button>
-                            <button class="pill-btn" onclick="resetPlanner()">↺ Reiniciar</button>
+                            <button class="pill-btn" onclick="resetPlanner()" data-i18n="btn_reset">↺ Reiniciar</button>
                         </div>
                     </div>
                 </div>
@@ -166,34 +166,35 @@
                 <div class="glass-panel">
                     <!-- Control de Recetas -->
                     <div class="section-container">
-                        <h2 class="section-title"><span class="icon-span">📖</span> Control de Recetas</h2>
+                        <h2 class="section-title"><span class="icon-span">📖</span> <span data-i18n="title_recipe">Control de Recetas</span></h2>
                         <div class="input-group">
-                            <label>Nombre de la Receta</label>
-                            <input type="text" class="custom-input save-data" id="recipe-name" placeholder="Ej: Pasta al Pesto">
+                            <label data-i18n="lbl_recipe_name">Nombre de la Receta</label>
+                            <input type="text" class="custom-input save-data" id="recipe-name" data-i18n-ph="ph_recipe_name" placeholder="Ej: Pasta al Pesto">
                         </div>
                         <div class="form-row">
                             <div class="input-group">
-                                <label><span class="label-icon">🕒</span> Tiempo (min)</label>
+                                <label><span class="label-icon">🕒</span> <span data-i18n="lbl_time">Tiempo (min)</span></label>
                                 <div class="input-with-suffix">
                                     <input type="number" class="custom-input save-data" id="recipe-time" placeholder="30">
                                     <span class="suffix">min</span>
                                 </div>
                             </div>
                             <div class="input-group">
-                                <label><span class="label-icon chart-small">📊</span> Dificultad</label>
+                                <label><span class="label-icon chart-small">📊</span> <span data-i18n="lbl_diff">Dificultad</span></label>
                                 <select class="custom-select save-data" id="recipe-diff">
-                                    <option value="easy">🟢 Fácil</option>
-                                    <option value="medium">🟡 Medio</option>
-                                    <option value="hard">🔴 Difícil</option>
+                                    <option value="easy" data-i18n="opt_easy">🟢 Fácil</option>
+                                    <option value="medium" data-i18n="opt_medium">🟡 Medio</option>
+                                    <option value="hard" data-i18n="opt_hard">🔴 Difícil</option>
                                 </select>
                             </div>
                         </div>
                         <div class="input-group">
-                            <label><span class="label-icon tag-icon">🏷️</span> Categoría</label>
+                            <label><span class="label-icon tag-icon">🏷️</span> <span data-i18n="lbl_cat">Categoría</span></label>
                             <select class="custom-select save-data" id="recipe-cat">
-                                <option value="healthy">🟢 Saludable</option>
-                                <option value="fast">⚡ Rápido</option>
-                                <option value="budget">💰 Económico</option>
+                                <option value="healthy" data-i18n="opt_healthy">🥗 Saludable</option>
+                                <option value="fast" data-i18n="opt_fast">⚡ Rápido</option>
+                                <option value="budget" data-i18n="opt_cheap">💰 Económico</option>
+                                <option value="gourmet" data-i18n="opt_gourmet">✨ Gourmet</option>
                             </select>
                         </div>
                     </div>
@@ -202,15 +203,15 @@
 
                     <!-- Preparación de Comidas -->
                     <div class="section-container">
-                        <h2 class="section-title"><span class="icon-span">🍳</span> Preparación de Comidas</h2>
+                        <h2 class="section-title"><span class="icon-span">🍳</span> <span data-i18n="title_prep">Preparación de Comidas</span></h2>
                         <div class="form-row">
                             <div class="input-group">
-                                <label><span class="label-icon">🍲</span> Cocinar con anticipación</label>
-                                <textarea class="custom-textarea save-data" id="prep-cook" placeholder="Ej: Arroz, lavar vegetales..."></textarea>
+                                <label><span class="label-icon">🍲</span> <span data-i18n="lbl_cook">Cocinar con anticipación</span></label>
+                                <textarea class="custom-textarea save-data" id="prep-cook" data-i18n-ph="ph_cook" placeholder="Ej: Arroz, lavar vegetales..."></textarea>
                             </div>
                             <div class="input-group">
-                                <label><span class="label-icon">❄️</span> Refrigerar / Congelar</label>
-                                <textarea class="custom-textarea save-data" id="prep-freeze" placeholder="Ej: Pollo marinado, siopas..."></textarea>
+                                <label><span class="label-icon">❄️</span> <span data-i18n="lbl_freeze">Refrigerar / Congelar</span></label>
+                                <textarea class="custom-textarea save-data" id="prep-freeze" data-i18n-ph="ph_freeze" placeholder="Ej: Pollo marinado, siopas..."></textarea>
                             </div>
                         </div>
                     </div>
@@ -219,23 +220,23 @@
 
                     <!-- Registro de Comidas Diario -->
                     <div class="section-container">
-                        <h2 class="section-title"><span class="icon-span">📅</span> Registro de Comidas Diario</h2>
+                        <h2 class="section-title"><span class="icon-span">📅</span> <span data-i18n="title_daily_meals">Registro de Comidas Diario</span></h2>
                         <div class="meal-grid">
                             <div class="input-group">
-                                <label><span class="label-icon">☀️</span> Desayuno</label>
-                                <input type="text" class="custom-input save-data" id="meal-breakfast" placeholder="Ej: Avena con frutas...">
+                                <label><span class="label-icon">☀️</span> <span data-i18n="lbl_breakfast">Desayuno</span></label>
+                                <input type="text" class="custom-input save-data" id="meal-breakfast" data-i18n-ph="ph_breakfast" placeholder="Ej: Avena con frutas...">
                             </div>
                             <div class="input-group">
-                                <label><span class="label-icon">🌤️</span> Almuerzo</label>
-                                <input type="text" class="custom-input save-data" id="meal-lunch" placeholder="Ej: Pollo con vegetales...">
+                                <label><span class="label-icon">🌤️</span> <span data-i18n="lbl_lunch">Almuerzo</span></label>
+                                <input type="text" class="custom-input save-data" id="meal-lunch" data-i18n-ph="ph_lunch" placeholder="Ej: Pollo con vegetales...">
                             </div>
                             <div class="input-group">
-                                <label><span class="label-icon">🌙</span> Cena</label>
-                                <input type="text" class="custom-input save-data" id="meal-dinner" placeholder="Ej: Ensalada ligera...">
+                                <label><span class="label-icon">🌙</span> <span data-i18n="lbl_dinner">Cena</span></label>
+                                <input type="text" class="custom-input save-data" id="meal-dinner" data-i18n-ph="ph_dinner" placeholder="Ej: Ensalada ligera...">
                             </div>
                             <div class="input-group">
-                                <label><span class="label-icon">🍿</span> Snacks</label>
-                                <input type="text" class="custom-input save-data" id="meal-snacks" placeholder="Ej: Almendras, yogurt...">
+                                <label><span class="label-icon">🍿</span> <span data-i18n="lbl_snacks">Snacks</span></label>
+                                <input type="text" class="custom-input save-data" id="meal-snacks" data-i18n-ph="ph_snacks" placeholder="Ej: Almendras, yogurt...">
                             </div>
                         </div>
                     </div>
