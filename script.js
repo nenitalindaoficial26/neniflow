@@ -48,8 +48,9 @@ function showSaveIndicator() {
 const i18nData = {
     es: {
         app_title: "Meal Planner", btn_reset: "✨ Reiniciar", settings_title: "Ajustes Visuales",
-        lbl_lang: "Idioma / Language", lbl_currency: "Moneda", lbl_primary: "Color Fondo", lbl_accent: "Color de Acento", lbl_font: "Tipografía", lbl_zoom: "Tamaño (Zoom)",
-        title_budget: "💸 Presupuesto y Gastos", lbl_budget_total: "Presupuesto Semanal", lbl_expense_day: "Día del Gasto", lbl_add_expense: "Detalle y Monto del Gasto", ph_expense_desc: "Detalle...", btn_clear_expenses: "🧹 Reiniciar Gastos", txt_spent: "Gasto Semanal:", txt_remaining: "Restante:",
+        lbl_lang: "Idioma / Language", lbl_currency: "Moneda", lbl_primary: "Color Fondo", lbl_accent: "Color de Acento", lbl_font: "Tipografía", lbl_zoom: "Tamaño (Zoom)", lbl_dark_mode: "Modo Oscuro",
+        opt_usd: "USD ($ Dólares)", opt_cop: "COP ($ Pesos Col)", opt_mxn: "MXN ($ Pesos Mex)", opt_eur: "EUR (€ Euros)", opt_gbp: "GBP (£ Libras)",
+        title_budget: "💸 Presupuesto y Gastos", lbl_budget_total: "Presupuesto Semanal", lbl_expense_day: "Día del Gasto", lbl_add_expense: "Detalle y Monto del Gasto", ph_expense_desc: "Detalle...", btn_clear_expenses: "🧹 Reiniciar Gastos", txt_spent: "Gasto Semanal", txt_remaining: "Restante",
         opt_mon: "Lunes", opt_tue: "Martes", opt_wed: "Miércoles", opt_thu: "Jueves", opt_fri: "Viernes", opt_sat: "Sábado", opt_sun: "Domingo",
         title_prep: "🍱 Preparación de Comidas", lbl_cook: "👩🏻‍🍳 Cocinar con anticipación", ph_cook: "Ej: Arroz, lavar vegetales...", lbl_freeze: "❄️ Refrigerar / Congelar", ph_freeze: "Ej: Pollo marinado, sopas...",
         title_recipe: "📖 Control de Recetas", lbl_recipe_name: "Nombre de la Receta", ph_recipe_name: "Ej: Pasta al Pesto", lbl_time: "Tiempo (min)", lbl_diff: "Dificultad",
@@ -58,8 +59,9 @@ const i18nData = {
     },
     en: {
         app_title: "Meal Planner", btn_reset: "✨ Reset", settings_title: "Visual Settings",
-        lbl_lang: "Language", lbl_currency: "Currency", lbl_primary: "Background Color", lbl_accent: "Accent Color", lbl_font: "Typography", lbl_zoom: "Size (Zoom)",
-        title_budget: "💸 Budget & Expenses", lbl_budget_total: "Weekly Budget", lbl_expense_day: "Expense Day", lbl_add_expense: "Expense Detail & Amount", ph_expense_desc: "Detail...", btn_clear_expenses: "🧹 Reset Expenses", txt_spent: "Weekly Spent:", txt_remaining: "Remaining:",
+        lbl_lang: "Language", lbl_currency: "Currency", lbl_primary: "Background Color", lbl_accent: "Accent Color", lbl_font: "Typography", lbl_zoom: "Size (Zoom)", lbl_dark_mode: "Dark Mode",
+        opt_usd: "USD ($ Dollars)", opt_cop: "COP ($ Col Pesos)", opt_mxn: "MXN ($ Mex Pesos)", opt_eur: "EUR (€ Euros)", opt_gbp: "GBP (£ Pounds)",
+        title_budget: "💸 Budget & Expenses", lbl_budget_total: "Weekly Budget", lbl_expense_day: "Expense Day", lbl_add_expense: "Expense Detail & Amount", ph_expense_desc: "Detail...", btn_clear_expenses: "🧹 Reset Expenses", txt_spent: "Weekly Spent", txt_remaining: "Remaining",
         opt_mon: "Monday", opt_tue: "Tuesday", opt_wed: "Wednesday", opt_thu: "Thursday", opt_fri: "Friday", opt_sat: "Saturday", opt_sun: "Sunday",
         title_prep: "🍱 Meal Prep Planner", lbl_cook: "👩🏻‍🍳 Cook in advance", ph_cook: "Ex: Rice, wash veggies...", lbl_freeze: "❄️ Refrigerate / Freeze", ph_freeze: "Ex: Marinated chicken, soups...",
         title_recipe: "📖 Recipe Control", lbl_recipe_name: "Recipe Name", ph_recipe_name: "Ex: Pesto Pasta", lbl_time: "Time (min)", lbl_diff: "Difficulty",
@@ -68,8 +70,9 @@ const i18nData = {
     },
     fr: {
         app_title: "Planificateur", btn_reset: "✨ Réinitialiser", settings_title: "Paramètres",
-        lbl_lang: "Langue", lbl_currency: "Devise", lbl_primary: "Fond", lbl_accent: "Accent", lbl_font: "Typographie", lbl_zoom: "Taille",
-        title_budget: "💸 Budget et Dépenses", lbl_budget_total: "Budget Hebdo", lbl_expense_day: "Jour", lbl_add_expense: "Détail et Montant", ph_expense_desc: "Détail...", btn_clear_expenses: "🧹 Effacer", txt_spent: "Dépense:", txt_remaining: "Restant:",
+        lbl_lang: "Langue", lbl_currency: "Devise", lbl_primary: "Fond", lbl_accent: "Accent", lbl_font: "Typographie", lbl_zoom: "Taille", lbl_dark_mode: "Mode Sombre",
+        opt_usd: "USD ($ Dollars)", opt_cop: "COP ($ Pesos Col)", opt_mxn: "MXN ($ Pesos Mex)", opt_eur: "EUR (€ Euros)", opt_gbp: "GBP (£ Livres)",
+        title_budget: "💸 Budget et Dépenses", lbl_budget_total: "Budget Hebdo", lbl_expense_day: "Jour", lbl_add_expense: "Détail et Montant", ph_expense_desc: "Détail...", btn_clear_expenses: "🧹 Effacer", txt_spent: "Dépense", txt_remaining: "Restant",
         opt_mon: "Lundi", opt_tue: "Mardi", opt_wed: "Mercredi", opt_thu: "Jeudi", opt_fri: "Vendredi", opt_sat: "Samedi", opt_sun: "Dimanche",
         title_prep: "🍱 Préparation", lbl_cook: "👩🏻‍🍳 Cuisiner", ph_cook: "Ex: Riz, légumes...", lbl_freeze: "❄️ Congeler", ph_freeze: "Ex: Poulet, soupes...",
         title_recipe: "📖 Recettes", lbl_recipe_name: "Nom", ph_recipe_name: "Ex: Pâtes", lbl_time: "Temps", lbl_diff: "Difficulté",
@@ -78,8 +81,9 @@ const i18nData = {
     },
     pt: {
         app_title: "Planejador", btn_reset: "✨ Reiniciar", settings_title: "Ajustes",
-        lbl_lang: "Idioma", lbl_currency: "Moeda", lbl_primary: "Fundo", lbl_accent: "Acento", lbl_font: "Tipografia", lbl_zoom: "Tamanho",
-        title_budget: "💸 Orçamento", lbl_budget_total: "Orçamento Semanal", lbl_expense_day: "Dia", lbl_add_expense: "Detalhe e Valor", ph_expense_desc: "Detalhe...", btn_clear_expenses: "🧹 Limpar", txt_spent: "Gasto:", txt_remaining: "Restante:",
+        lbl_lang: "Idioma", lbl_currency: "Moeda", lbl_primary: "Fundo", lbl_accent: "Acento", lbl_font: "Tipografia", lbl_zoom: "Tamanho", lbl_dark_mode: "Modo Escuro",
+        opt_usd: "USD ($ Dólares)", opt_cop: "COP ($ Pesos Col)", opt_mxn: "MXN ($ Pesos Mex)", opt_eur: "EUR (€ Euros)", opt_gbp: "GBP (£ Libras)",
+        title_budget: "💸 Orçamento", lbl_budget_total: "Orçamento Semanal", lbl_expense_day: "Dia", lbl_add_expense: "Detalhe e Valor", ph_expense_desc: "Detalhe...", btn_clear_expenses: "🧹 Limpar", txt_spent: "Gasto", txt_remaining: "Restante",
         opt_mon: "Segunda", opt_tue: "Terça", opt_wed: "Quarta", opt_thu: "Quinta", opt_fri: "Sexta", opt_sat: "Sábado", opt_sun: "Domingo",
         title_prep: "🍱 Preparação", lbl_cook: "👩🏻‍🍳 Cozinhar", ph_cook: "Ex: Arroz, vegetais...", lbl_freeze: "❄️ Congelar", ph_freeze: "Ex: Frango, sopas...",
         title_recipe: "📖 Receitas", lbl_recipe_name: "Nome", ph_recipe_name: "Ex: Massa", lbl_time: "Tempo", lbl_diff: "Dificuldade",
