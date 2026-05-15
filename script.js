@@ -65,6 +65,26 @@ const i18nData = {
         title_recipe: "📖 Recipe Control", lbl_recipe_name: "Recipe Name", ph_recipe_name: "Ex: Pesto Pasta", lbl_time: "Time (min)", lbl_diff: "Difficulty",
         opt_easy: "Easy", opt_medium: "Medium", opt_hard: "Hard", lbl_cat: "Category", opt_healthy: "🥗 Healthy", opt_fast: "⚡ Fast", opt_cheap: "Budget", opt_gourmet: "✨ Gourmet",
         title_daily_meals: "🍽️ Daily Meal Log", lbl_breakfast: "☀️ Breakfast", ph_breakfast: "Ex: Oatmeal with fruits...", lbl_lunch: "🥗 Lunch", ph_lunch: "Ex: Chicken with veggies...", lbl_dinner: "🌙 Dinner", ph_dinner: "Ex: Light salad...", lbl_snacks: "🍎 Snacks", ph_snacks: "Ex: Almonds, yogurt..."
+    },
+    fr: {
+        app_title: "Planificateur", btn_reset: "✨ Réinitialiser", settings_title: "Paramètres",
+        lbl_lang: "Langue", lbl_currency: "Devise", lbl_primary: "Fond", lbl_accent: "Accent", lbl_font: "Typographie", lbl_zoom: "Taille",
+        title_budget: "💸 Budget et Dépenses", lbl_budget_total: "Budget Hebdo", lbl_expense_day: "Jour", lbl_add_expense: "Détail et Montant", ph_expense_desc: "Détail...", btn_clear_expenses: "🧹 Effacer", txt_spent: "Dépense:", txt_remaining: "Restant:",
+        opt_mon: "Lundi", opt_tue: "Mardi", opt_wed: "Mercredi", opt_thu: "Jeudi", opt_fri: "Vendredi", opt_sat: "Samedi", opt_sun: "Dimanche",
+        title_prep: "🍱 Préparation", lbl_cook: "👩🏻‍🍳 Cuisiner", ph_cook: "Ex: Riz, légumes...", lbl_freeze: "❄️ Congeler", ph_freeze: "Ex: Poulet, soupes...",
+        title_recipe: "📖 Recettes", lbl_recipe_name: "Nom", ph_recipe_name: "Ex: Pâtes", lbl_time: "Temps", lbl_diff: "Difficulté",
+        opt_easy: "Facile", opt_medium: "Moyen", opt_hard: "Difficile", lbl_cat: "Catégorie", opt_healthy: "🥗 Sain", opt_fast: "⚡ Rapide", opt_cheap: "Budget", opt_gourmet: "✨ Gourmet",
+        title_daily_meals: "🍽️ Journal", lbl_breakfast: "☀️ Petit Déjeuner", ph_breakfast: "Ex: Avoine...", lbl_lunch: "🥗 Déjeuner", ph_lunch: "Ex: Poulet...", lbl_dinner: "🌙 Dîner", ph_dinner: "Ex: Salade...", lbl_snacks: "🍎 Collations", ph_snacks: "Ex: Yaourt..."
+    },
+    pt: {
+        app_title: "Planejador", btn_reset: "✨ Reiniciar", settings_title: "Ajustes",
+        lbl_lang: "Idioma", lbl_currency: "Moeda", lbl_primary: "Fundo", lbl_accent: "Acento", lbl_font: "Tipografia", lbl_zoom: "Tamanho",
+        title_budget: "💸 Orçamento", lbl_budget_total: "Orçamento Semanal", lbl_expense_day: "Dia", lbl_add_expense: "Detalhe e Valor", ph_expense_desc: "Detalhe...", btn_clear_expenses: "🧹 Limpar", txt_spent: "Gasto:", txt_remaining: "Restante:",
+        opt_mon: "Segunda", opt_tue: "Terça", opt_wed: "Quarta", opt_thu: "Quinta", opt_fri: "Sexta", opt_sat: "Sábado", opt_sun: "Domingo",
+        title_prep: "🍱 Preparação", lbl_cook: "👩🏻‍🍳 Cozinhar", ph_cook: "Ex: Arroz, vegetais...", lbl_freeze: "❄️ Congelar", ph_freeze: "Ex: Frango, sopas...",
+        title_recipe: "📖 Receitas", lbl_recipe_name: "Nome", ph_recipe_name: "Ex: Massa", lbl_time: "Tempo", lbl_diff: "Dificuldade",
+        opt_easy: "Fácil", opt_medium: "Médio", opt_hard: "Difícil", lbl_cat: "Categoria", opt_healthy: "🥗 Saudável", opt_fast: "⚡ Rápido", opt_cheap: "Econômico", opt_gourmet: "✨ Gourmet",
+        title_daily_meals: "🍽️ Registro Diário", lbl_breakfast: "☀️ Café da Manhã", ph_breakfast: "Ex: Aveia...", lbl_lunch: "🥗 Almoço", ph_lunch: "Ex: Frango...", lbl_dinner: "🌙 Jantar", ph_dinner: "Ex: Salada...", lbl_snacks: "🍎 Lanches", ph_snacks: "Ex: Iogurte..."
     }
 };
 
@@ -82,6 +102,20 @@ const messages = {
         "A dollar saved is a step closer to your goals. 💸",
         "Healthy food, healthy mind, healthy finances. 🌱",
         "You got this! Your budget and your body will thank you. 💪🏼"
+    ],
+    fr: [
+        "Cuisiner à la maison est le premier pas pour économiser et prendre soin de soi ! 💖",
+        "Planifiez vos repas, sauvez votre budget et nourrissez votre âme. ✨",
+        "Une économie faite est un pas de plus vers vos objectifs. 💸",
+        "Nourriture saine, esprit sain, finances saines. 🌱",
+        "Vous pouvez le faire ! Votre budget y gagnera. 💪🏼"
+    ],
+    pt: [
+        "Cozinhar em casa é o primeiro passo para economizar e cuidar do seu corpo! 💖",
+        "Planeje suas refeições, salve sua carteira e nutra sua alma. ✨",
+        "Um real economizado é um passo a mais para suas metas. 💸",
+        "Comida saudável, mente saudável, finanças saudáveis. 🌱",
+        "Você consegue! Seu orçamento e seu corpo agradecerão. 💪🏼"
     ]
 };
 
