@@ -1,7 +1,13 @@
-// Load data from LocalStorage
+// Consolidated Initialization
 document.addEventListener('DOMContentLoaded', () => {
-    const elements = document.querySelectorAll('.save-data');
+    // 1. Load Global Settings (Colors, Theme, Lang, etc.)
+    loadSettings();
     
+    // 2. Load Expense List
+    loadExpenses();
+    
+    // 3. Load Save-Data Elements (Budget, Meals, Checkboxes)
+    const elements = document.querySelectorAll('.save-data');
     elements.forEach(el => {
         const saved = localStorage.getItem('neniflow_meal_' + el.id);
         if (saved !== null) {
@@ -12,19 +18,31 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Save on change
+        // Save on every input change for instant persistence
         el.addEventListener('input', () => {
             if (el.type === 'checkbox') {
                 localStorage.setItem('neniflow_meal_' + el.id, el.checked);
             } else {
                 localStorage.setItem('neniflow_meal_' + el.id, el.value);
             }
+            // If it's the budget, recalculate
+            if(el.id === 'budget-total') calculateBudget();
+            showSaveIndicator();
         });
     });
 
-    // Initial calculation
+    // 4. Initial UI Polish
     calculateBudget();
+    randomizeMessage();
 });
+
+function showSaveIndicator() {
+    const indicator = document.getElementById('save-indicator');
+    if (indicator) {
+        indicator.classList.add('show');
+        setTimeout(() => indicator.classList.remove('show'), 1500);
+    }
+}
 
 // Translations
 const i18nData = {
@@ -45,7 +63,7 @@ const i18nData = {
         opt_mon: "Monday", opt_tue: "Tuesday", opt_wed: "Wednesday", opt_thu: "Thursday", opt_fri: "Friday", opt_sat: "Saturday", opt_sun: "Sunday",
         title_prep: "🍱 Meal Prep Planner", lbl_cook: "👩🏻‍🍳 Cook in advance", ph_cook: "Ex: Rice, wash veggies...", lbl_freeze: "❄️ Refrigerate / Freeze", ph_freeze: "Ex: Marinated chicken, soups...",
         title_recipe: "📖 Recipe Control", lbl_recipe_name: "Recipe Name", ph_recipe_name: "Ex: Pesto Pasta", lbl_time: "Time (min)", lbl_diff: "Difficulty",
-        opt_easy: "Easy", opt_medium: "Medium", opt_hard: "Hard", lbl_cat: "Category", opt_healthy: "🥗 Healthy", opt_fast: "⚡ Fast", opt_cheap: "🪙 Budget", opt_gourmet: "✨ Gourmet",
+        opt_easy: "Easy", opt_medium: "Medium", opt_hard: "Hard", lbl_cat: "Category", opt_healthy: "🥗 Healthy", opt_fast: "⚡ Fast", opt_cheap: "Budget", opt_gourmet: "✨ Gourmet",
         title_daily_meals: "🍽️ Daily Meal Log", lbl_breakfast: "☀️ Breakfast", ph_breakfast: "Ex: Oatmeal with fruits...", lbl_lunch: "🥗 Lunch", ph_lunch: "Ex: Chicken with veggies...", lbl_dinner: "🌙 Dinner", ph_dinner: "Ex: Light salad...", lbl_snacks: "🍎 Snacks", ph_snacks: "Ex: Almonds, yogurt..."
     }
 };
@@ -101,24 +119,22 @@ function loadExpenses() {
 function renderExpenses() {
     const listEl = document.getElementById('expense-list');
     const containerEl = document.getElementById('expense-list-container');
-    const currency = document.getElementById('currency-symbol') ? document.getElementById('currency-symbol').value : '$';
+    
+    if (!listEl) return;
     
     listEl.innerHTML = '';
     if (expenseList.length > 0) {
         containerEl.style.display = 'block';
         expenseList.forEach((exp, idx) => {
             const li = document.createElement('li');
-            li.style.display = 'flex';
-            li.style.justifyContent = 'space-between';
-            li.style.padding = '0.3rem 0.5rem';
-            li.style.borderBottom = '1px solid rgba(0,0,0,0.03)';
+            li.className = 'expense-item';
             
-            const dayBadge = exp.day ? `<span style="background: var(--primary-pink); padding: 0.1rem 0.4rem; border-radius: 4px; font-size: 0.7rem; margin-right: 0.5rem; color: var(--text-dark); font-weight: 600;">${exp.day}</span>` : '';
+            const dayBadge = exp.day ? `<span style="color: var(--primary-pink); font-weight: 700; margin-right: 8px;">${exp.day.substring(0,2)}</span>` : '';
 
             li.innerHTML = `
-                <span style="flex:1; display:flex; align-items:center;">${dayBadge} ${exp.desc || 'Gasto'}</span>
-                <span style="font-weight:600; margin-right:1rem; display:flex; align-items:center;">${formatMoney(exp.amount)}</span>
-                <span style="cursor:pointer; color:var(--text-muted); display:flex; align-items:center;" onclick="removeExpense(${idx})">❌</span>
+                <span style="flex:1;">${dayBadge}${exp.desc || 'Gasto'}</span>
+                <span style="font-weight:700; margin-right:12px;">${formatMoney(exp.amount)}</span>
+                <span style="cursor:pointer; opacity:0.5;" onclick="removeExpense(${idx})">✕</span>
             `;
             listEl.appendChild(li);
         });
@@ -175,93 +191,136 @@ function formatMoney(amount) {
     }).format(amount);
 }
 
-// Calculate Budget
 function calculateBudget() {
-    const budgetTotal = parseFloat(document.getElementById('budget-total').value) || 0;
+    const budgetTotalInput = document.getElementById('budget-total');
+    const budgetTotal = parseFloat(budgetTotalInput.value) || 0;
+    
+    // Update the currency prefix based on symbol
+    const currencyPrefix = document.querySelector('.currency-prefix');
+    const currencyCode = document.getElementById('currency-symbol') ? document.getElementById('currency-symbol').value : 'USD';
+    let symbol = '$';
+    if(currencyCode === 'EUR') symbol = '€';
+    if(currencyCode === 'GBP') symbol = '£';
+    if(currencyPrefix) currencyPrefix.innerText = symbol;
     
     const totalSpent = expenseList.reduce((acc, curr) => acc + curr.amount, 0);
     const remaining = budgetTotal - totalSpent;
     
-    document.getElementById('spent-amount').innerText = formatMoney(totalSpent);
-    document.getElementById('remaining-amount').innerText = formatMoney(remaining);
+    const spentEl = document.getElementById('spent-amount');
+    const remainingEl = document.getElementById('remaining-amount');
+    
+    if (spentEl) spentEl.innerText = formatMoney(totalSpent);
+    if (remainingEl) {
+        remainingEl.innerText = formatMoney(remaining);
+        if (remaining < 0) {
+            remainingEl.style.color = '#FF5252';
+        } else {
+            remainingEl.style.color = '';
+        }
+    }
     
     const progress = document.getElementById('budget-progress');
-    if(budgetTotal > 0) {
-        let perc = (totalSpent / budgetTotal) * 100;
-        if(perc > 100) perc = 100;
-        progress.style.width = perc + '%';
-        
-        progress.style.background = 'var(--accent-pink)';
+    const percentText = document.getElementById('budget-percent');
+    
+    if (budgetTotal > 0) {
+        let perc = Math.round((totalSpent / budgetTotal) * 100);
+        if (perc > 100) perc = 100;
+        if (progress) progress.style.width = perc + '%';
+        if (percentText) percentText.innerText = perc + '%';
     } else {
-        progress.style.width = '0%';
+        if (progress) progress.style.width = '0%';
+        if (percentText) percentText.innerText = '0%';
     }
 }
 
 // Settings Menu Logic
 function toggleSettings() {
     const panel = document.getElementById('settings-panel');
-    panel.classList.toggle('active');
+    if (panel) panel.classList.toggle('active');
+}
+
+// Theme Toggle Logic
+function toggleDarkMode() {
+    const isDark = document.getElementById('dark-mode-toggle').checked;
+    if (isDark) {
+        document.body.classList.add('dark-mode');
+    } else {
+        document.body.classList.remove('dark-mode');
+    }
+    saveSettings();
 }
 
 function updateTheme() {
     const root = document.documentElement;
-    const primary = document.getElementById('color-primary').value;
-    const accent = document.getElementById('color-accent').value;
-    const font = document.getElementById('font-family').value;
-    const zoom = document.getElementById('widget-zoom').value;
-    const currency = document.getElementById('currency-symbol').value;
-    const lang = document.getElementById('language-select').value;
+    const primaryInput = document.getElementById('color-primary');
+    const bgInput = document.getElementById('color-bg');
+    const fontInput = document.getElementById('font-family');
+    const zoomInput = document.getElementById('widget-zoom');
+    const langInput = document.getElementById('language-select');
 
-    root.style.setProperty('--primary-pink', primary);
-    root.style.setProperty('--white', primary);
-    root.style.setProperty('--glass-bg', primary);
-    root.style.setProperty('--beige', primary);
-    root.style.setProperty('--accent-pink', accent);
-    root.style.setProperty('--font-main', font);
+    if (primaryInput) {
+        root.style.setProperty('--primary-pink', primaryInput.value);
+        root.style.setProperty('--light-pink', primaryInput.value + '33'); 
+    }
+    if (bgInput) {
+        root.style.setProperty('--bg-main', bgInput.value);
+    }
+    if (fontInput) root.style.setProperty('--font-main', fontInput.value);
     
-    document.getElementById('scale-wrapper').style.transform = `scale(${zoom})`;
+    if (zoomInput) {
+        const wrapper = document.getElementById('scale-wrapper');
+        if (wrapper) wrapper.style.transform = `scale(${zoomInput.value})`;
+    }
 
-    // Apply translations
-    applyTranslations(lang);
+    if (langInput) applyTranslations(langInput.value);
 
-    // Update budget rendering and expense list to use new currency
-    renderExpenses();
-
-    // Save to local storage
-    localStorage.setItem('neniflow_settings', JSON.stringify({ primary, accent, font, zoom, currency, lang }));
+    calculateBudget();
+    saveSettings();
 }
 
-// Load settings
+function saveSettings() {
+    const settings = {
+        primary: document.getElementById('color-primary')?.value,
+        bg: document.getElementById('color-bg')?.value,
+        font: document.getElementById('font-family')?.value,
+        zoom: document.getElementById('widget-zoom')?.value,
+        currency: document.getElementById('currency-symbol')?.value,
+        lang: document.getElementById('language-select')?.value,
+        darkMode: document.getElementById('dark-mode-toggle')?.checked
+    };
+    localStorage.setItem('neniflow_settings', JSON.stringify(settings));
+}
+
 function loadSettings() {
-    const settings = JSON.parse(localStorage.getItem('neniflow_settings'));
-    if(settings) {
-        if(document.getElementById('color-primary')) document.getElementById('color-primary').value = settings.primary || '#FFFFFF';
-        if(document.getElementById('color-accent')) document.getElementById('color-accent').value = settings.accent || '#FFB6C1';
-        if(document.getElementById('font-family')) document.getElementById('font-family').value = settings.font || "'Poppins', sans-serif";
-        if(document.getElementById('widget-zoom')) document.getElementById('widget-zoom').value = settings.zoom || "1";
-        if(document.getElementById('currency-symbol')) document.getElementById('currency-symbol').value = settings.currency || "USD";
-        if(document.getElementById('language-select')) document.getElementById('language-select').value = settings.lang || "es";
+    const settingsStr = localStorage.getItem('neniflow_settings');
+    if (settingsStr) {
+        const settings = JSON.parse(settingsStr);
+        if (settings.primary && document.getElementById('color-primary')) document.getElementById('color-primary').value = settings.primary;
+        if (settings.bg && document.getElementById('color-bg')) document.getElementById('color-bg').value = settings.bg;
+        if (settings.font && document.getElementById('font-family')) document.getElementById('font-family').value = settings.font;
+        if (settings.zoom && document.getElementById('widget-zoom')) document.getElementById('widget-zoom').value = settings.zoom;
+        if (settings.currency && document.getElementById('currency-symbol')) document.getElementById('currency-symbol').value = settings.currency;
+        if (settings.lang && document.getElementById('language-select')) document.getElementById('language-select').value = settings.lang;
+        if (settings.darkMode !== undefined) {
+            const toggle = document.getElementById('dark-mode-toggle');
+            if(toggle) {
+                toggle.checked = settings.darkMode;
+                if (settings.darkMode) document.body.classList.add('dark-mode');
+            }
+        }
     }
     updateTheme();
 }
 
-// Initial setup
-document.addEventListener('DOMContentLoaded', () => {
-    loadSettings();
-    loadExpenses();
-});
-
-// Reset Planner
 function resetPlanner() {
     const elements = document.querySelectorAll('.save-data');
     elements.forEach(el => {
         if (el.type === 'checkbox') {
             el.checked = false;
-            localStorage.removeItem('neniflow_meal_' + el.id);
         } else {
             el.value = '';
-            localStorage.removeItem('neniflow_meal_' + el.id);
         }
+        localStorage.removeItem('neniflow_meal_' + el.id);
     });
     calculateBudget();
     randomizeMessage();
